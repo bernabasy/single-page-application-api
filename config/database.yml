@@ -12,16 +12,16 @@
 # Configure Using Gemfile
 # gem "pg"
 #
-default: &default
-  adapter: postgresql
-  encoding: unicode
+# default: &default
+#   adapter: postgresql
+#   encoding: unicode
   # For details on connection pooling, see Rails configuration guide
   # https://guides.rubyonrails.org/configuring.html#database-pooling
-  pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
+#   pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
 
-development:
-  <<: *default
-  database: single_page_application_api_development
+# development:
+#   <<: *default
+#   database: single_page_application_api_development
 
   # The specified database role being used to connect to PostgreSQL.
   # To create additional roles in PostgreSQL see `$ createuser --help`.
@@ -30,7 +30,7 @@ development:
   #username: single_page_application_api
 
   # The password associated with the PostgreSQL role (username).
-  #password:
+  # password: Bernabas
 
   # Connect on a TCP socket. Omitted by default since the client uses a
   # domain socket that doesn't need configuration. Windows does not have
@@ -53,9 +53,9 @@ development:
 # Warning: The database defined as "test" will be erased and
 # re-generated from your development database when you run "rake".
 # Do not set this db to the same as development or production.
-test:
-  <<: *default
-  database: single_page_application_api_test
+# test:
+#   <<: *default
+#   database: single_page_application_api_test
 
 # As with config/credentials.yml, you never want to store sensitive information,
 # like your database password, in your source code. If your source code is
@@ -77,8 +77,28 @@ test:
 # Read https://guides.rubyonrails.org/configuring.html#configuring-a-database
 # for a full overview on how database connection configuration can be specified.
 #
+# production:
+#   <<: *default
+#   database: single_page_application_api_production
+#   username: 'postgres'
+#   password: Bernabas
+default: &default
+  adapter: postgresql
+  encoding: unicode
+  username: postgres
+  pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
+
+development:
+  <<: *default
+  database: single_page_application_api_development
+  password: Bernabas
+
+test:
+  <<: *default
+  database: single_page_application_api_test
+  password: Bernabas
+
 production:
   <<: *default
   database: single_page_application_api_production
-  username: single_page_application_api
-  password: <%= ENV["SINGLE_PAGE_APPLICATION_API_DATABASE_PASSWORD"] %>
+  url: <%= ENV['DATABASE_URL'] %>
